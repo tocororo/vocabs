@@ -1369,6 +1369,21 @@ lxml = ["lxml (>=4.3.0,<5.0.0)"]
 networkx = ["networkx (>=2.0.0,<3.0.0)"]
 
 [[package]]
+name = "rdflib-neo4j"
+version = "1.1"
+description = "RDFLib Store backed by neo4j"
+optional = false
+python-versions = "*"
+files = [
+    {file = "rdflib_neo4j-1.1-py3-none-any.whl", hash = "sha256:2add950e278cb4d2269ff29bb070ec23824f3cd6bd6d96f8532e8ae414cba167"},
+    {file = "rdflib_neo4j-1.1.tar.gz", hash = "sha256:423435ee44c9375da713c522e6ce4d69d80e8e7177660ac6939514a73bd14ac1"},
+]
+
+[package.dependencies]
+neo4j = ">=5.0.0"
+rdflib = ">=7.0.0"
+
+[[package]]
 name = "referencing"
 version = "0.35.1"
 description = "JSON Referencing + Python"
@@ -2402,4 +2417,4 @@ watchmedo = ["PyYAML (>=3.10)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "5c0ba185e423ee253a7dc3c1c7cfe5512e656f3a3a7f3315d88ae0267d053655"
+content-hash = "fcbfb42d45b6bcb4aa5f4599b9e4bd15828f38739930f7e1ca1958ecacfbad68"
