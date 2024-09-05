@@ -1,0 +1,10 @@
+esta carpeta tiene el codigo heredado de edel
+originalmente era un modulo para invenio.
+debemos utilizarlo como base para lo nuevo.
+quitar todo lo de invenio.
+
+
+eventualmente hay que borrar la carpeta legacy.
+
+adaptarlo a https://neo4j.com/labs/rdflib-neo4j/1.0/gettingstarted/
+
