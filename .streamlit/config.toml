@@ -1,0 +1,8 @@
+[theme]
+#https://docs.streamlit.io/develop/concepts/configuration/theming
+base="light"
+primaryColor="teal"
+#backgroundColor="#EEEEEE"
+#secondaryBackgroundColor="#CFD8DC"
+#textColor="#000000"
+font="sans serif"
