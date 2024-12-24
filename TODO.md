@@ -1,5 +1,10 @@
 # TODO List
 
+Para correr el servidor de `stramlit` con un observador de cambios en la carpeta `vocabs`
+nodemon --exec streamlit run vocabs/frontend/app.py <vocabs/ &
+
+Internacionalización - https://lokalise.com/blog/translating-apps-with-gettext-comprehensive-tutorial/
+
 0- Pensar
 
 1- Importar vocabularios SKOS usando [rdflib-neo4j](https://neo4j.
