@@ -1,9 +1,8 @@
 import streamlit as st
-import gettext
 from vocabs.backend.neo4voc.connection import Connection
+from vocabs.backend.neo4voc.neosemantics import NeoSemantics
 
-gettext.bindtextdomain("messages", "vocabs/frontend/locales")
-gettext.textdomain("messages")
+from vocabs.frontend.locales.languaje import *
 
 language = st.sidebar.selectbox(' ', ['es', 'en'])
 
@@ -14,7 +13,7 @@ translations.install()
 _ = translations.gettext
 
 @st.dialog('ERROR')
-def dialog_error(e):
+def dialog_error(e:Exception):
     st.write(e)
 @st.dialog('Info')
 def dialog_info(info):
@@ -27,8 +26,12 @@ try:
     st.text_area(_("Hello streamlit"))
 
     connection = Connection()
-    records = connection.database_all_info()
-    st.write(records)
+    neo = NeoSemantics()
+    records = neo.import_data(
+        path= 'file:///home/edel/Projects/PhD/unesco-thesaurus.ttl', 
+        format= 'ttl'
+        )
+    neo.add_labels_to_nodes(property='uri', property_value='vocabularies.unesco.org', labels='Unesco')
     connection.close()
     
 except Exception as e:

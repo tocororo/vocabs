@@ -7,7 +7,7 @@
 
 """ Aplication Interface """
 
-from neo4j import Driver, Session, GraphDatabase, basic_auth
+from neo4j import Driver, Result, Session, GraphDatabase, basic_auth
 
 NEO4J_USERNAME = 'neo4j'
 """Username value for the Neo4j data base."""
@@ -77,9 +77,8 @@ class Connection(object):
 
     def query(self, query: str):
         """ Executes a query and returns the result. """
-        with self.__session as session:
-            results = session.run(query)
-            return results
+        return self.__driver.execute_query(query)
+        
 
     def create(self, query: str):
         """ Executes a `create` query and returns the result.
@@ -95,6 +94,15 @@ class Connection(object):
 
         records, summary, keys = self.__driver.execute_query(
             'MATCH(n) RETURN n;',
+            database_=NEO4J_DRIVER_DB,
+        )
+        return records
+
+    def delete_all_info(self):
+        """ Returns the graph """
+
+        records, summary, keys = self.__driver.execute_query(
+            'MATCH (n) DETACH DELETE n',
             database_=NEO4J_DRIVER_DB,
         )
         return records
