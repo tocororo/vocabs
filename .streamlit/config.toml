@@ -1,3 +1,7 @@
+[client]
+#Hide the default sidebar navigation to create a custom navigation menu
+showSidebarNavigation = false
+
 [theme]
 #https://docs.streamlit.io/develop/concepts/configuration/theming
 base="light"

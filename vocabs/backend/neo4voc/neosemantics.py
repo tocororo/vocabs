@@ -1,10 +1,18 @@
 from rdflib import Graph
 from rdflib_neo4j import Neo4jStore, Neo4jStoreConfig, HANDLE_VOCAB_URI_STRATEGY, HANDLE_MULTIVAL_STRATEGY
 from vocabs.backend.neo4voc.connection import Connection, NEO4J_DRIVER_DB, NEO4J_DRIVER_HOST, NEO4J_USERNAME, NEO4J_PASSWORD
-from vocabs.frontend.locales.languaje import _
+from vocabs.frontend.locales.language import Language
+
 
 class NeoSemantics():
-    
+    # ********************************
+    # creates the variable `_` that contains the translation documents.
+    # ********************************
+    _ = None
+
+    def __init__(self):
+        l = Language()
+        self._ = l.language() 
     def create_constraint(self):
         '''
             This function will create a constraint to make the `uri` property of all nodes tagged as `Resource` unique.
@@ -68,7 +76,7 @@ class NeoSemantics():
         neo4j_graph.close(True)
 
         #uri: http://aims.fao.org/aos/agrovoc
-        self.add_labels_to_nodes(property=tags['identifier'], property_value=tags['ide_value'], labels=tags['labels'])
+        self.add_labels_to_nodes(property=tags['identifier'], property_value=tags['id_value'], labels=tags['labels'])
 
     def add_labels_to_nodes(self, **kwargs):
         """

@@ -106,3 +106,12 @@ class Connection(object):
             database_=NEO4J_DRIVER_DB,
         )
         return records
+    
+    def delete_all_info_by_tag(self, **kwargs):
+        """ Returns the graph """
+        tag = kwargs['tag']
+        records, summary, keys = self.__driver.execute_query(
+            'MATCH (n:'+tag+') DETACH DELETE n',
+            database_=NEO4J_DRIVER_DB,
+        )
+        return records
