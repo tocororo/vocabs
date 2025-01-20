@@ -38,6 +38,7 @@ class Connection(object):
     # driver of connection
     __driver: Driver = None
     __session: Session = None
+    __uri: str = None
 
     def __new__(cls):
         """ it is a private function that create if not exists a `Connection` instance """
@@ -62,10 +63,10 @@ class Connection(object):
                 not NEO4J_PASSWORD):
             raise Exception("missing arguments to set up a connection with Neo4j data base")
 
-        uri = "bolt://" + NEO4J_DRIVER_HOST + ":7687"
+        self.__uri = "bolt://" + NEO4J_DRIVER_HOST + ":7687"
         username = NEO4J_USERNAME
         password = NEO4J_PASSWORD
-        self.__driver = GraphDatabase.driver(uri, auth=(username, password),
+        self.__driver = GraphDatabase.driver(self.__uri, auth=(username, password),
                                              encrypted=False)
         self.__driver.verify_connectivity()
         self.__session = self.__driver.session(database=NEO4J_DRIVER_DB)
@@ -115,3 +116,6 @@ class Connection(object):
             database_=NEO4J_DRIVER_DB,
         )
         return records
+    
+    def uri(self):
+        return self.__uri

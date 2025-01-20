@@ -1,9 +1,11 @@
+from langchain_huggingface import HuggingFaceEmbeddings
 import streamlit as st
+from vocabs.backend.neo4voc.neo4_vector_index import access_neo_index, create_neo_index, get_indexes
 from vocabs.frontend.locales.language import Language
 from vocabs.backend.neo4voc.connection import Connection
 from vocabs.backend.neo4voc.neosemantics import NeoSemantics
 
-from vocabs.frontend.menu import Menu
+from vocabs.frontend.pages.menu import Menu
 
 class Import:
 
@@ -24,7 +26,10 @@ class Import:
         # ********************************
         l = Language()
         _ = l.language()
-
+        # pre configuration
+        # 
+        neo = NeoSemantics()
+        config, constraint =neo.create_constraint_and_default_config()
         try:
             st.title(_('Sceiba Vocabularies Service'))
             st.subheader('System for vocabularies')
@@ -35,23 +40,20 @@ class Import:
                 st.write(uploaded_file.type)
                 st.write(uploaded_file._file_urls.upload_url)
                 connection = Connection()
-                neo = NeoSemantics()
+                
                 records = neo.import_data(
                     path= uploaded_file.getvalue(),#'file:///home/edel/Projects/PhD/unesco-thesaurus.ttl', 
                     format= uploaded_file.type,#'ttl',
                     tags= {
                         'identifier': 'uri',
-                        'id_value': 'vocabularies.unesco.org',
+                        'id_value': 'unesco.org',
                         'labels': 'Unesco'
                     }
                     )
-                # neo.add_labels_to_nodes(property='uri', property_value='vocabularies.unesco.org', labels='Unesco')
                 connection.close()
-            # endif
             
         except Exception as e:
             st.toast(e, icon=':material/warning:')
-            # dialog_error(e)
 
 i = Import()
 st.Page(i, title="Sceiba/Import")

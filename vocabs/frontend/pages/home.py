@@ -1,7 +1,7 @@
 import streamlit as st
 
 from vocabs.frontend.locales.language import Language
-from vocabs.frontend.menu import Menu
+from vocabs.frontend.pages.menu import Menu
 
 class Home:
 

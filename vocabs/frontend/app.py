@@ -3,7 +3,7 @@ from vocabs.backend.neo4voc.connection import Connection
 from vocabs.backend.neo4voc.neosemantics import NeoSemantics
 
 from vocabs.frontend.locales.language import Language
-from vocabs.frontend.menu import Menu
+from vocabs.frontend.pages.menu import Menu
 
 class App:
 
