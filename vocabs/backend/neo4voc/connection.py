@@ -8,6 +8,7 @@
 """ Aplication Interface """
 
 from neo4j import Driver, Result, Session, GraphDatabase, basic_auth
+from neo4j.graph import Graph
 
 NEO4J_USERNAME = 'neo4j'
 """Username value for the Neo4j data base."""
@@ -79,7 +80,9 @@ class Connection(object):
     def query(self, query: str):
         """ Executes a query and returns the result. """
         return self.__driver.execute_query(query)
-        
+
+    def query_to_python(self, query: str)-> Graph:
+        return self.__driver.execute_query(query_=query, result_transformer_=Result.graph)  
 
     def create(self, query: str):
         """ Executes a `create` query and returns the result.
