@@ -73,18 +73,18 @@ class NeoSemantics():
                 constraint = connection.query('CREATE CONSTRAINT n10s_unique_uri FOR (r:Resource) REQUIRE r.uri IS UNIQUE;')
                 # raise Exception(self._('The constraint already exists'))
 
-        records, summary, keys = connection.query('call n10s.graphconfig.show')
-        config = None
-        if records == []:
-            config = connection.query("CALL n10s.graphconfig.init({ \
-                                        handleVocabUris: '"+ self.strategy.value +"', \
-                                        handleMultival: '"+ self.multival_strategy.name +"', \
-                                        keepLangTag: true, \
-                                        keepCustomDataTypes: true, \
-                                        applyNeo4jNaming: true \
-                                    });")
+        # records, summary, keys = connection.query('call n10s.graphconfig.show')
+        # config = None
+        # if records == []:
+        #     config = connection.query("CALL n10s.graphconfig.init({ \
+        #                                 handleVocabUris: '"+ self.strategy.value +"', \
+        #                                 handleMultival: '"+ self.multival_strategy.name +"', \
+        #                                 keepLangTag: true, \
+        #                                 keepCustomDataTypes: true, \
+        #                                 applyNeo4jNaming: true \
+        #                             });")
         
-        return config, constraint 
+        return constraint 
         
     def import_data_n10s(self, **kwargs):
         path = ''
@@ -148,9 +148,9 @@ class NeoSemantics():
                               ("skos","altLabel"), 
                               ('dct','description'), 
                               ('dct','title'), 
-                              ('skosxl','literalForm'), 
                               ('skos','scopeNote')],
-                          batching=True)
+                          batching=True) 
+                            #   ('skosxl','literalForm'),
 
         # Create the RDF Graph, parse & ingest the data to Neo4j, and close the store(If the field batching is set to True in the Neo4jStoreConfig, remember to close the store to prevent the loss of any uncommitted records.)
         neo4j_graph = Graph(store=Neo4jStore(config=config))
@@ -161,7 +161,8 @@ class NeoSemantics():
 
         #uri: http://aims.fao.org/aos/agrovoc
         self.add_labels_to_nodes(property=tags['identifier'], property_value=tags['id_value'], labels=tags['labels'])
-
+        return True
+    
     def add_labels_to_nodes(self, **kwargs):
         """
             Adds labels to nodes that contain a certain value in a specified property, it does not remove labels that it already has\n

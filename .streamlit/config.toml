@@ -2,6 +2,9 @@
 #Hide the default sidebar navigation to create a custom navigation menu
 showSidebarNavigation = false
 
+[server]
+maxUploadSize = 2000
+
 [theme]
 #https://docs.streamlit.io/develop/concepts/configuration/theming
 base="light"
